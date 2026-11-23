@@ -1,0 +1,19 @@
+# Local, intentionally vulnerable training applications for SYSX end-to-end runs.
+# Both are bound to 127.0.0.1 only. Never expose them to a network, and never point SYSX at anything you do not own.
+services:
+  dvwa:
+    image: ghcr.io/digininja/dvwa:latest
+    ports: ["127.0.0.1:4280:80"]
+    environment:
+      DB_SERVER: db
+    depends_on: [db]
+  db:
+    image: mariadb:10
+    environment:
+      MYSQL_ROOT_PASSWORD: dvwa
+      MYSQL_DATABASE: dvwa
+      MYSQL_USER: dvwa
+      MYSQL_PASSWORD: p@ssw0rd
+  juice-shop:
+    image: bkimminich/juice-shop:latest
+    ports: ["127.0.0.1:3000:3000"]

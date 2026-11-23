@@ -1,0 +1,35 @@
+{
+  "name": "sysx-lab",
+  "description": "The bundled Phase 4 lab (tests/lab_phase4.py). Self-contained: used by the automated tests.",
+  "authorization_type": "training_app",
+  "start_path": "/p4",
+  "intensity": "thorough",
+  "modules": ["reconnaissance", "endpoint_discovery", "xss", "sqli", "ssrf", "csrf", "idor", "additional_vulns", "misconfiguration", "authentication"],
+  "credentials": [
+    {"label": "alice", "auth_type": "bearer", "username": "alice", "secret": "tok-alice"},
+    {"label": "bob", "auth_type": "bearer", "username": "bob", "secret": "tok-bob"},
+    {"label": "admin", "auth_type": "bearer", "username": "admin", "secret": "tok-admin"}
+  ],
+  "stable": true,
+  "must": [
+    {"vuln_type": "path_traversal", "endpoint_contains": "/vuln/traversal?"},
+    {"vuln_type": "open_redirect", "endpoint_contains": "/vuln/redirect?"},
+    {"vuln_type": "ssti", "endpoint_contains": "/vuln/ssti?"},
+    {"vuln_type": "command_injection", "endpoint_contains": "/vuln/cmdi"},
+    {"vuln_type": "ssrf", "endpoint_contains": "/vuln/ssrf?"},
+    {"vuln_type": "xss", "endpoint_contains": "/finder"},
+    {"vuln_type": "csrf", "technique": "missing_token"},
+    {"vuln_type": "idor", "technique": "forced_browsing_anonymous", "endpoint_contains": "/admin/public"},
+    {"vuln_type": "misconfiguration", "technique": "stack_trace"},
+    {"vuln_type": "misconfiguration", "technique": "directory_listing"}
+  ],
+  "must_not": [
+    {"endpoint_contains": "traversal-safe"},
+    {"endpoint_contains": "redirect-safe"},
+    {"endpoint_contains": "ssti-safe"},
+    {"endpoint_contains": "ssrf-safe"},
+    {"endpoint_contains": "safe-orders"},
+    {"endpoint_contains": "/vuln/fixed"}
+  ],
+  "min_findings": 12
+}

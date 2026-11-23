@@ -1,0 +1,26 @@
+{
+  "name": "dvwa",
+  "description": "Damn Vulnerable Web Application (security level LOW). Needs a logged-in session: see e2e/README.md.",
+  "authorization_type": "training_app",
+  "start_path": "/vulnerabilities/",
+  "intensity": "standard",
+  "modules": ["reconnaissance", "endpoint_discovery", "xss", "sqli", "csrf", "additional_vulns", "misconfiguration", "authentication"],
+  "excluded_paths": ["/logout.php", "/setup.php", "/security.php"],
+  "credentials": [
+    {"label": "dvwa-session", "auth_type": "cookie", "username": "session", "secret": ""}
+  ],
+  "stable": false,
+  "must": [
+    {"vuln_type": "sqli", "endpoint_contains": "/vulnerabilities/sqli/"},
+    {"vuln_type": "xss", "endpoint_contains": "/vulnerabilities/xss_r/"}
+  ],
+  "may": [
+    {"vuln_type": "sqli", "endpoint_contains": "/vulnerabilities/sqli_blind/"},
+    {"vuln_type": "path_traversal", "endpoint_contains": "/vulnerabilities/fi/"},
+    {"vuln_type": "open_redirect", "endpoint_contains": "/vulnerabilities/open_redirect/"},
+    {"vuln_type": "xss", "endpoint_contains": "/vulnerabilities/xss_d/"},
+    {"vuln_type": "csrf", "technique": "missing_token"},
+    {"vuln_type": "misconfiguration", "technique": "cookie_flags"},
+    {"vuln_type": "file_upload", "technique": "upload_form"}
+  ]
+}

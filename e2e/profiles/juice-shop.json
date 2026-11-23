@@ -1,0 +1,21 @@
+{
+  "name": "juice-shop",
+  "description": "OWASP Juice Shop. A single-page app: the crawler sees little of it without a browser, so expectations are modest.",
+  "authorization_type": "training_app",
+  "start_path": "/",
+  "intensity": "standard",
+  "modules": ["reconnaissance", "endpoint_discovery", "xss", "sqli", "csrf", "additional_vulns", "misconfiguration", "authentication"],
+  "credentials": [
+    {"label": "juice-token", "auth_type": "bearer", "username": "token", "secret": ""}
+  ],
+  "stable": false,
+  "must": [
+    {"vuln_type": "misconfiguration"}
+  ],
+  "may": [
+    {"vuln_type": "sqli", "endpoint_contains": "/rest/products/search"},
+    {"vuln_type": "misconfiguration", "technique": "cors"},
+    {"vuln_type": "misconfiguration", "technique": "exposed_sensitive_file"},
+    {"vuln_type": "misconfiguration", "technique": "missing_csp"}
+  ]
+}
